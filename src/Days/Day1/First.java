@@ -1,39 +1,36 @@
+package Days.Day1;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class First {
 
     public static void main(String[] args) {
 
-        String[] zeilen = readLines("01/input.txt");
-        int zeile = 0;
-        int alterWert = 0;
-        int großteElf = 0;
-        while (zeile < zeilen.length) {
-            if (zeilen[zeile].equals("")) {
-                System.out.println("Leere Zeile");
-                System.out.println(alterWert);
-                if (alterWert>großteElf){
-                    großteElf=alterWert;
-                }
-                alterWert=0;
-            } else {
-                int wertDerZeile = Integer.parseInt(zeilen[zeile]);
-                alterWert = alterWert + wertDerZeile;
-            }
-            zeile = zeile + 1;
-            ;
+        String[] zeilen = readLines("src/Days/Day1/input.txt");
 
+        Elf aktuellerElf = new Elf();
+        List<Elf> elfen = new ArrayList<>();
+        for (int zeile = 0; zeile < zeilen.length; zeile++) {
+            if (!zeilen[zeile].equals("")) {
+                aktuellerElf.addItem(Integer.parseInt(zeilen[zeile]));
+            } else {
+                System.out.println("Letzter Elf: " + aktuellerElf.getCalories());
+                elfen.add(aktuellerElf);
+                aktuellerElf = new Elf();
+            }
         }
-        // letzter Elf
-        if (alterWert>großteElf){
-            großteElf=alterWert;
+
+        Elf biggestElf = new Elf();
+        for (Elf elf : elfen) {
+            if (biggestElf.getCalories() < elf.getCalories())
+                biggestElf = elf;
         }
-        System.out.println(großteElf);
+        System.out.println("BiggestElf: " + biggestElf.getCalories());
+
     }
 
     public static String[] readLines(String filename) {
@@ -44,6 +41,7 @@ public class First {
             while ((line = bufferedReader.readLine()) != null) {
                 lines.add(line);
             }
+            lines.add("");
             bufferedReader.close();
             return lines.toArray(new String[lines.size()]);
         } catch (IOException e) {
