@@ -6,22 +6,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class First {
+public class Second {
 
     public static void main(String[] args) {
 
         String[] zeilen = readLines("src/Days/Day3/input.txt");
         int score = 0;
-        List<Rucksack> saecke = new ArrayList<>();
-        for (String zeile : zeilen){
-            if (zeile.length()>1)
-            saecke.add(new Rucksack(zeile));
-            else System.out.println("Bad line");
+        List<Group> groups = new ArrayList<>();
+        for (int i = 0; i < zeilen.length; System.out.println("New group")) {
+            Group newGroup = new Group();
+            if (i + 3 > zeilen.length){
+                i++;
+                continue;
+            }
+            for (int c = 0; c < 3; c++) {
+                // if (i+2>zeilen.length)
+                // continue;
+                String aktuelleZeile = zeilen[i];
+                if (aktuelleZeile.length() > 1) {
+                    newGroup.addRucksack(new Rucksack(aktuelleZeile));
+                } else
+                    System.out.println("Bad line");
+                i++;
+            }
+
+            System.out.println();
+            groups.add(newGroup);
 
         }
-        for (Rucksack sack : saecke){
-            score+=convertItem(sack.getOverlappingItem());
+        for (Group group : groups) {
+            char badge = group.getBadge();
+            System.out.println(convertItem(badge) + " " + badge);
+            score += convertItem(badge);
         }
+        // 1828 to low
         System.out.println(score);
         // System.out.println((int)'a'+" "+(int)'z'+ " "+ (int)'A'+ " "+(int)'Z');
         // System.out.println(convertItem('z'));
@@ -29,13 +47,13 @@ public class First {
 
     }
 
-    public static int convertItem(char item){
-        if((int)item>=(int)'A'&&(int)item<=(int)'Z'){
-            //Uppercase
-            return (int)item -(int)'A' + 27;
+    public static int convertItem(char item) {
+        if ((int) item >= (int) 'A' && (int) item <= (int) 'Z') {
+            // Uppercase
+            return (int) item - (int) 'A' + 27;
         } else {
-            //Lowercase
-            return (int)item-(int)'a'+ 1;
+            // Lowercase
+            return (int) item - (int) 'a' + 1;
         }
     }
 
