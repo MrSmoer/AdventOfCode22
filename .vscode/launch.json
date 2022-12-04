@@ -8,6 +8,20 @@
             "type": "java",
             "name": "Launch Second",
             "request": "launch",
+            "mainClass": "Days.Day4.Second",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
+        {
+            "type": "java",
+            "name": "Launch First",
+            "request": "launch",
+            "mainClass": "Days.Day4.First",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
+        {
+            "type": "java",
+            "name": "Launch Second",
+            "request": "launch",
             "mainClass": "Days.Day1.Second",
             "projectName": "AdventOfCode22_3e526d23"
         },
