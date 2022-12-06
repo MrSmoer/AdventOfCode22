@@ -3,8 +3,6 @@ package Days.Day2;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 public class SecondMatch {
     int score;
     char enemyInput;
@@ -36,7 +34,7 @@ public class SecondMatch {
 
     private int convertResultToInt(char ch) {
         System.out.println((int) ch);
-        int t = (ch - 88) * 3;
+        //int t = (ch - 88) * 3;
         return ((int) ch - 88) * 3;
     }
 

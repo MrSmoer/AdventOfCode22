@@ -13,7 +13,6 @@ public class First {
         String[] zeilen = readLines("src/Days/Day2/input.txt");
         int score = 0;
 
-        List<Match> matches = new ArrayList<>();
         for (int zeile = 0; zeile < zeilen.length; zeile++) {
             if (!zeilen[zeile].contains(" ")) {
                 System.out.println("Komische Zeile");
@@ -32,14 +31,6 @@ public class First {
             }
         }
         System.out.println("Score " + score);
-
-        // Elf biggestElf = new Elf();
-        // for (Elf elf : elfen) {
-        // if (biggestElf.getCalories() < elf.getCalories())
-        // biggestElf = elf;
-        // }
-        // System.out.println("BiggestElf: " + biggestElf.getCalories());
-
     }
 
     public static String[] readLines(String filename) {
@@ -54,7 +45,6 @@ public class First {
             bufferedReader.close();
             return lines.toArray(new String[lines.size()]);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return new String[1];
         }

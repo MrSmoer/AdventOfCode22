@@ -12,7 +12,6 @@ public class Second{
         try {
             markerChars = solve(readLines("src/Days/Day6/input.txt"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println(markerChars);
@@ -40,7 +39,6 @@ public class Second{
             System.out.println(charnumber);
             bufferedReader.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return 0;

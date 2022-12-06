@@ -5,8 +5,9 @@ import java.util.Deque;
 
 public class PortStorage {
     Deque<Character>[] storDeques;
+    @SuppressWarnings("unchecked")
     PortStorage(int size){
-        this.storDeques = (ArrayDeque<Character>[])new ArrayDeque[size];
+        this.storDeques = (Deque<Character>[]) new ArrayDeque[size];
     }
 
     public void addStack(int stackNumber, Deque<Character> stack){

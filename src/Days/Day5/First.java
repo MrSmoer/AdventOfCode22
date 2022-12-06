@@ -33,8 +33,7 @@ public class First {
         Deque<Instruction> instructions = new ArrayDeque<Instruction>();
         for (int intstructionCounter = 0; intstructionCounter < zeilen.length
                 - instructionBegin-1; intstructionCounter++) {
-            Instruction instruction = readInstruction(zeilen[intstructionCounter + instructionBegin]);// TODO bug
-                                                                                                      // potenial
+            Instruction instruction = readInstruction(zeilen[intstructionCounter + instructionBegin]);
             instructions.add(instruction);
         }
 
@@ -60,7 +59,6 @@ public class First {
         String stackCountLine = zeilen[instructionBegin - 2];
         //int numberOfStacks = Integer.parseInt(stackCountLine.substring(stackCountLine.length() - 2)+"");
         int numberOfStacks = stackCountLine.split(" {1,}").length-1;
-        //TODO does not work for numbers over 10
         return numberOfStacks;
     }
 
@@ -94,7 +92,6 @@ public class First {
             bufferedReader.close();
             return lines.toArray(new String[lines.size()]);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return new String[1];
         }

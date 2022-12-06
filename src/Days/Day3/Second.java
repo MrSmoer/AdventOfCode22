@@ -69,7 +69,6 @@ public class Second {
             bufferedReader.close();
             return lines.toArray(new String[lines.size()]);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return new String[1];
         }

@@ -13,7 +13,6 @@ public class Second {
         String[] zeilen = readLines("src/Days/Day2/input.txt");
         int score = 0;
 
-        List<SecondMatch> matches = new ArrayList<>();
         for (int zeile = 0; zeile < zeilen.length; zeile++) {
             if (!zeilen[zeile].contains(" ")) {
                 System.out.println("Komische Zeile");
@@ -54,7 +53,6 @@ public class Second {
             bufferedReader.close();
             return lines.toArray(new String[lines.size()]);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return new String[1];
         }

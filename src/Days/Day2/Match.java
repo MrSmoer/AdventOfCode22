@@ -1,7 +1,5 @@
 package Days.Day2;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 public class Match {
     int score;
     char enemyInput;
