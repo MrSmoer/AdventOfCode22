@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Helper.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Helper.py",
+            "console": "integratedTerminal",
+            "args": ["8"],
+            "justMyCode": true
+        },
+        {
             "type": "java",
             "name": "Launch Second",
             "request": "launch",
