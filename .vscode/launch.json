@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/Helper.py",
             "console": "integratedTerminal",
-            "args": ["8"],
+            "args": ["6"],
             "justMyCode": true
         },
         {

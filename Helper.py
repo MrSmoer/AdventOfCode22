@@ -9,9 +9,13 @@ import shutil
 JAVAPATH=os.path.join('src','Days')
 
 def getInput(day):
-    cookie="asdf"
-    print('Getting input.txt for Day '+day)
-    requests.get('https://adventofcode.com/2022/day/'+day+'/input', cookies=cookie)
+    cookie=dict(session=os.environ.get('ADVENTOFCODE_COOKIE'))
+    print('Getting input.txt for Day '+str(day))
+    print(cookie)
+    """answer=requests.get('https://adventofcode.com/2022/day/'+str(day)+'/input',cookies=cookie)
+    print(answer.content)
+    return answer.content"""
+    return bytes("testtest\n", 'utf-8')
 
 def createNewDay(day):
     print('Creating Day '+ str(day))
@@ -25,6 +29,8 @@ def createNewDay(day):
             print('Overwriting ...')
             shutil.rmtree(dirpath)
     os.makedirs(dirpath)
+    with (open(os.path.join(dirpath,'input.txt'), 'wb') as file):
+        file.write(getInput(day))
 
 def getDateSuffix(date):
     date_suffix = ["th", "st", "nd", "rd"]
@@ -49,7 +55,7 @@ def getCurrentDay():
 
 def main():
     day=getCurrentDay()
-    if len(sys.argv) < 1:
+    if len(sys.argv) < 2:
         createNewDay(day)
         return
     print(sys.argv[1]+" was given as first argument")
