@@ -4,31 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Command {
-    List<String> outPut;
-    CommandType command;
-    public Command(CommandType command){
-        this.command = command;
-        this.outPut=new ArrayList<String>();
+    List<String> output;
+    CommandType type;
+    String[] args;
+    public Command(CommandType type, String[] args){
+        this.args=args;
+        this.type = type;
+        this.output=new ArrayList<String>();
     }
 
-    public void setOutput(String outputLine){
-        this.outPut.add(outputLine);
+    public void addOutputLine(String outputLine){
+        this.output.add(outputLine);
     }
 
-    public List<String> getOutPut() {
-        return outPut;
+    public List<String> getOutput() {
+        return output;
     }
 
-    public void setOutPut(List<String> outPut) {
-        this.outPut = outPut;
+    public void setOutput(List<String> output) {
+        this.output = output;
     }
 
-    public CommandType getCommand() {
-        return command;
+    public CommandType getType() {
+        return type;
     }
 
-    public void setCommand(CommandType command) {
-        this.command = command;
+    public void setType(CommandType command) {
+        this.type = command;
     }
 
     

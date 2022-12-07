@@ -8,47 +8,61 @@
             "type": "java",
             "name": "Launch Second",
             "request": "launch",
+            "mainClass": "Days.Day7.Second",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
+        {
+            "type": "java",
+            "name": "Launch Day7 First",
+            "request": "launch",
+            "mainClass": "Days.Day7.First",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
+        {
+            "type": "java",
+            "name": "Launch Day6 Second",
+            "request": "launch",
             "mainClass": "Days.Day6.Second",
             "projectName": "AdventOfCode22_3e526d23"
         },
         {
             "type": "java",
-            "name": "Launch First",
+            "name": "Launch Day6 First",
             "request": "launch",
             "mainClass": "Days.Day6.First",
             "projectName": "AdventOfCode22_3e526d23"
         },
         {
             "type": "java",
-            "name": "Launch Second",
+            "name": "Launch Day5 Second",
             "request": "launch",
             "mainClass": "Days.Day5.Second",
             "projectName": "AdventOfCode22_3e526d23"
         },
         {
             "type": "java",
-            "name": "Launch First",
+            "name": "Launch Day5 First",
             "request": "launch",
             "mainClass": "Days.Day5.First",
             "projectName": "AdventOfCode22_3e526d23"
         },
         {
             "type": "java",
-            "name": "Launch Second",
+            "name": "Launch Day4 Second",
             "request": "launch",
             "mainClass": "Days.Day4.Second",
             "projectName": "AdventOfCode22_3e526d23"
         },
         {
             "type": "java",
-            "name": "Launch First",
+            "name": "Launch Day4 First",
             "request": "launch",
             "mainClass": "Days.Day4.First",
             "projectName": "AdventOfCode22_3e526d23"
         },
         {
             "type": "java",
-            "name": "Launch Second",
+            "name": "Launch Day1 Second",
             "request": "launch",
             "mainClass": "Days.Day1.Second",
             "projectName": "AdventOfCode22_3e526d23"
@@ -61,7 +75,7 @@
         },
         {
             "type": "java",
-            "name": "Launch First",
+            "name": "Launch Day1 First",
             "request": "launch",
             "mainClass": "Days.Day1.First",
             "projectName": "AdventOfCode22_3e526d23"

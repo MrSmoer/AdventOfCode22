@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class First {
+public class Second {
 
     public static void main(String[] args) {
 
-        int markerChars = 0;
+        int size = 0;
         try {
-            markerChars = solve(provideBufferedReader("src/Days/Day7/input.txt"));
+            size = solve(provideBufferedReader("src/Days/Day7/input.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(markerChars);
+        System.out.println(size);
     }
 
     public static BufferedReader provideBufferedReader(String filename) throws IOException {
@@ -27,6 +27,7 @@ public class First {
 
     public static int solve(BufferedReader bufferedReader) {
         int size = 0;
+        Directory directoryToDelete = null;
         try {
             List<Directory> allDirectories = new ArrayList<Directory>();
             List<Command> commands = new ArrayList<Command>();
@@ -56,6 +57,7 @@ public class First {
             bufferedReader.close();
             
             Directory root = new Directory();
+            allDirectories.add(root);
             root.addObject("/", root);
             root.addObject("..", root);
             Directory workingDirectory = root;
@@ -93,13 +95,19 @@ public class First {
                     return 0;
                 }
             }
-            
+
+            int filledStorage = root.getSize();
+            int totalSpace = 70000000;
+            int spaceNeeded = 30000000;
+            int spaceToFree = spaceNeeded-(totalSpace-filledStorage);
+            System.out.println(spaceToFree);
+            directoryToDelete = allDirectories.get(0);
+
             for (Directory directory : allDirectories){
                 int directorySize=directory.getSize();
-                if(directorySize>100000)
-                    continue;
-                else
-                    size+=directorySize;
+                if(directorySize>=spaceToFree&&directorySize<directoryToDelete.getSize())
+                    directoryToDelete = directory;
+                System.out.println(directoryToDelete.getSize());
             }
 
             workingDirectory = root;
@@ -107,7 +115,7 @@ public class First {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return size;
+        return directoryToDelete.getSize();
 
     }
 }
