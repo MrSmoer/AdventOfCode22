@@ -4,8 +4,13 @@
     // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
+        {
+            "type": "java",
+            "name": "Launch First",
+            "request": "launch",
+            "mainClass": "Days.Day9.First",
+            "projectName": "AdventOfCode22_53a3de2a"
+        },
         {
             "type": "java",
             "name": "Launch Day9 Second",
