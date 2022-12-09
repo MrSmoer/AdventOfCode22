@@ -10,6 +10,11 @@ public class Tree {
         this.alreadyCounted=false;
         this.scenicScore=1;
     }
+    public Tree(int height, int scenicScore){
+        this.height=height;
+        this.alreadyCounted=false;
+        this.scenicScore=scenicScore;
+    }
 
     public int getHeight() {
         return height;

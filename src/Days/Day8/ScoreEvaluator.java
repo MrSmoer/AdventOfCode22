@@ -18,8 +18,8 @@ public class ScoreEvaluator {
         this.resetHighestTree();
     }
 
-    public void move(int x, int y){
-        this.point.move(this.getTreeInRow()+x,this.getRow()+y);
+    public void move(int x, int y) {
+        this.point.move(this.getTreeInRow() + x, this.getRow() + y);
     }
 
     public boolean walk() {
@@ -33,7 +33,7 @@ public class ScoreEvaluator {
                 break;
 
             case DOWN:
-                if (this.forest.size() - y  <= 1)
+                if (this.forest.size() - y <= 1)
                     return false;
                 this.move(0, 1);
                 break;
@@ -45,7 +45,7 @@ public class ScoreEvaluator {
                 break;
 
             case RIGHT:
-                if (this.getDirectionSize() - x  <= 1)
+                if (this.getDirectionSize() - x <= 1)
                     return false;
                 this.move(1, 0);
                 break;
@@ -56,34 +56,34 @@ public class ScoreEvaluator {
         return true;
     }
 
-    public boolean sidestep(){
+    public boolean sidestep() {
         Direction olDirection = this.direction;
-        if(this.direction==Direction.UP||this.direction==Direction.DOWN){
-            this.direction=Direction.RIGHT;
-        }else{
-            this.direction=Direction.DOWN;
+        if (this.direction == Direction.UP || this.direction == Direction.DOWN) {
+            this.direction = Direction.RIGHT;
+        } else {
+            this.direction = Direction.DOWN;
         }
         boolean result = walk();
-        this.direction=olDirection;
+        this.direction = olDirection;
         return result;
     }
 
     public int getRow() {
         return (int) this.point.getY();
     }
+
     public int getTreeInRow() {
         return (int) this.point.getX();
     }
 
-    public void setDirection(Direction direction){
-        this.direction=direction;
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
-
 
     public void walkWholeDirection() {
         this.setLocation(this.getHome());
-        int directionSize=getOtherDirectionSize();
-        for(int i = 0; i<directionSize;i++){
+        int directionSize = getOtherDirectionSize();
+        for (int i = 0; i < directionSize; i++) {
             this.sidestep();
             this.walkRow();
         }
@@ -91,64 +91,84 @@ public class ScoreEvaluator {
 
     private int getOtherDirectionSize() {
         Direction olDirection = this.direction;
-        if(this.direction==Direction.UP||this.direction==Direction.DOWN)
-            this.direction=Direction.RIGHT;
+        if (this.direction == Direction.UP || this.direction == Direction.DOWN)
+            this.direction = Direction.RIGHT;
         else
-            this.direction=Direction.DOWN;
-        int size=getDirectionSize();
-        this.direction=olDirection;
+            this.direction = Direction.DOWN;
+        int size = getDirectionSize();
+        this.direction = olDirection;
         return size;
     }
 
-    public int getDirectionSize(){
-        int directionSize=0;
-        if(this.direction==Direction.UP||this.direction==Direction.DOWN)
-            directionSize=forest.size();
+    public int getDirectionSize() {
+        int directionSize = 0;
+        if (this.direction == Direction.UP || this.direction == Direction.DOWN)
+            directionSize = forest.size();
         else
-            directionSize=forest.get(0).size();     
+            directionSize = forest.get(0).size();
         return directionSize;
     }
 
-    public Point getHome(){
+    public Point getHome() {
         Point homePoint = new Point();
         int directionSize = getDirectionSize();
-        if(this.direction==Direction.DOWN)
+        if (this.direction == Direction.DOWN)
             homePoint.setLocation(-1, -1);
-        else if(this.direction==Direction.UP)
+        else if (this.direction == Direction.UP)
             homePoint.setLocation(-1, directionSize);
-        else if(this.direction==Direction.RIGHT)
+        else if (this.direction == Direction.RIGHT)
             homePoint.setLocation(-1, -1);
-        else if(this.direction==Direction.LEFT)
+        else if (this.direction == Direction.LEFT)
             homePoint.setLocation(directionSize, -1);
         return homePoint;
     }
 
-    public void setLocation(Point p){
+    public void setLocation(Point p) {
         this.point.setLocation(p);
     }
 
-    public void walkRow(){
-        Tree currentTree =forest.get(this.getRow()).get(this.getTreeInRow());
-        if(!this.backstep()){
-
-        }
-        Point oldLocation= new Point(this.point.getLocation());
-        while(walk()){
-            if (currentTree.getHeight()>this.highestTree){
-                highestTree=currentTree.getHeight();
-                if(!currentTree.isAlreadyCounted()){
-                    currentTree.setAlreadyCounted(true);
-                    this.foundTrees++;
-                }
+    public void walkRow() {
+        Tree startingTree  = forest.get(this.getRow()).get(this.getTreeInRow());
+        Point oldLocation = new Point(this.point.getLocation());
+        int thisTreeHeight=startingTree.height;
+        int thisTreeScore=startingTree.scenicScore;
+        /*if (!this.backstep()) {
+            currentTree.setScenicScore(0);
+        }*/
+        Tree currentTree;
+        int directionTrees = 0;
+        boolean blocked = false;
+        while (walk()&&!blocked) {
+            currentTree = forest.get(this.getRow()).get(this.getTreeInRow());
+            if (currentTree.getHeight() >= thisTreeHeight) {
+                blocked=true;
             }
-
+            directionTrees++;
         }
-        this.resetHighestTree();
+        
         this.point.setLocation(oldLocation);
+        forest.get(this.getRow()).set(this.getTreeInRow(), new Tree(thisTreeHeight,thisTreeScore*directionTrees));
+        this.resetHighestTree();
+    }
+
+    private boolean backstep() {
+        Direction olDirection = this.direction;
+        if (this.direction == Direction.UP) {
+            this.direction = Direction.DOWN;
+        } else if (this.direction == Direction.DOWN) {
+            this.direction = Direction.UP;
+        } else if (this.direction == Direction.DOWN) {
+            this.direction = Direction.LEFT;
+        } else if (this.direction == Direction.RIGHT) {
+            this.direction = Direction.LEFT;
+        }
+        boolean result = walk();
+        this.direction = olDirection;
+        return result;
     }
 
     public void resetHighestTree() {
-        this.highestTree=-1;
+        this.highestTree = -1;
     }
 
 }

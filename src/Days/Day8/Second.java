@@ -1,5 +1,6 @@
 package Days.Day8;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -47,16 +48,25 @@ public class Second {
             directions.add(Direction.RIGHT);
             directions.add(Direction.DOWN);
             directions.add(Direction.UP);
-            for (List<Tree> rowList : forest) {
-                for(Tree tree : rowList){
+            for (int rowListCounter = 0; rowListCounter<forest.size();rowListCounter++) {
+                List<Tree> rowList = forest.get(rowListCounter);
+                for(int treeCounter = 0; treeCounter<rowList.size();treeCounter++){
                     for (Direction direction : directions) {
+                        scoreEvaluator.setLocation(new Point(treeCounter,rowListCounter));
                         scoreEvaluator.setDirection(direction);
                         scoreEvaluator.walkRow();
                     }
                 }
             }
-
-            size = scoreEvaluator.foundTrees;
+            size=0;
+            for (int rowListCounter = 0; rowListCounter<forest.size();rowListCounter++) {
+                List<Tree> rowList = forest.get(rowListCounter);
+                for(int treeCounter = 0; treeCounter<rowList.size();treeCounter++){
+                    int thisTreesScore=forest.get(rowListCounter).get(treeCounter).getScenicScore();
+                    if(thisTreesScore>size)
+                        size=thisTreesScore;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
