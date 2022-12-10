@@ -1,15 +1,13 @@
 package Days.Day10;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import Days.Day10.Instructions.Instruction;
-import Days.Day10.Instructions.addxInstruction;
 
 public class Cpu {
+    Crt crt;
     Deque<Instruction> instructions;
     ConcurrentHashMap<String, Instruction> instructionMap;
     Instruction loadedInstruction;
@@ -22,6 +20,7 @@ public class Cpu {
         this.executionDeque = new ArrayDeque<Instruction>();
         this.instructions= instructions;
         this.xRegister=1;
+        this.crt=new Crt();
         loadNewInstruction();
         
     }
@@ -30,6 +29,7 @@ public class Cpu {
         if(this.executionDeque.size()>0){
             this.xRegister=executionDeque.pollFirst().execute(this.xRegister);
         }
+        this.crt.drawPixel(this.xRegister);
         if(this.loadedInstruction.cycle()){
             this.executionDeque.add(this.loadedInstruction);
             return loadNewInstruction();

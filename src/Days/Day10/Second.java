@@ -3,7 +3,6 @@ package Days.Day10;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -15,16 +14,14 @@ import Days.Day10.Instructions.Instruction;
 import Days.Day10.Instructions.addxInstruction;
 import Days.Day10.Instructions.noopInstruction;
 
-import java.awt.Point;
-
-public class First {
+public class Second {
 
     public static void main(String[] args) {
 
         int positionCount = 0;
         try {
             positionCount = solve(provideBufferedReader("src/Days/Day10/input.txt"));
-             // positionCount = solve(provideBufferedReader("src/Days/Day10/testInput.txt"));
+            // positionCount = solve(provideBufferedReader("src/Days/Day10/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,17 +62,16 @@ public class First {
                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
-        List<Point> signalStrength = new ArrayList<>();
+
         Cpu cpu = new Cpu(instructionDeque);
         int cycleCounter = 0;
-        while (cycleCounter < 20) {
+        while (cycleCounter < 40) {
             if (!cpu.cycle())
                 break;
             cycleCounter++;
         }
-        signalStrength.add(new Point(cycleCounter, cpu.xRegister));
-        int nextMeasurement = 60;
-        while (cpu.instructions.size()>=20) {
+        int nextMeasurement = 80;
+        while (cpu.hasNewInstruction()) {
             while (cycleCounter < nextMeasurement) {
                 if (!cpu.cycle())
                     break;
@@ -83,14 +79,12 @@ public class First {
             }
             nextMeasurement = nextMeasurement + 40;
             
-            signalStrength.add(new Point(cycleCounter, cpu.xRegister));
         }
-        int result=0;
-        for(Point measurement : signalStrength){
-            result+=measurement.x*measurement.y;
-        }
+        cpu.crt.addLastLine();
+        cpu.crt.printScreen();
 
-        return result;
+
+        return 0;
     }
 
 

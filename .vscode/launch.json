@@ -7,6 +7,13 @@
 
         {
             "type": "java",
+            "name": "Launch Day10 Second",
+            "request": "launch",
+            "mainClass": "Days.Day10.Second",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
+        {
+            "type": "java",
             "name": "Launch Day10 First",
             "request": "launch",
             "mainClass": "Days.Day10.First",
