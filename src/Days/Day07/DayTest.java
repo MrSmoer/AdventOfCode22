@@ -15,7 +15,7 @@ public class DayTest {
     @Test
     public void testSolveFirst() {
         try {
-            BufferedReader inputReader = First.provideBufferedReader("src/Days/Day7/input.txt");
+            //BufferedReader inputReader = First.provideBufferedReader("src/Days/Day7/input.txt");
             BufferedReader testInputReader = First.provideBufferedReader("src/Days/Day7/testInput.txt");
             assertEquals(95437, First.solve(testInputReader));
         } catch (IOException e) {
@@ -27,7 +27,7 @@ public class DayTest {
     @Test
     public void testSolveSecond() {
         try {
-            BufferedReader inputReader = Second.provideBufferedReader("src/Days/Day7/input.txt");
+            //BufferedReader inputReader = Second.provideBufferedReader("src/Days/Day7/input.txt");
             BufferedReader testInputReader = Second.provideBufferedReader("src/Days/Day7/testInput.txt");
             assertEquals(24933642, Second.solve(testInputReader));
             assertEquals(24933642, Second.solve(testInputReader));

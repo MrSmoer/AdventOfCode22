@@ -33,7 +33,6 @@ public class Second {
                 commandList.add(moveCommand);
             }
             bufferedReader.close();
-            Map map = new Map(commandList);
             //map.printMap();
 
             Head head = new Head();

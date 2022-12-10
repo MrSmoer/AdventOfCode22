@@ -38,7 +38,6 @@ public class First {
 
             List<Point> visitedPoints = new ArrayList<Point>();
             visitedPoints.add(new Point(0,0));
-            List<Point> headVisitedPoints = new ArrayList<Point>();
 
 
             for (MoveCommand moveCommand : commandList) {
