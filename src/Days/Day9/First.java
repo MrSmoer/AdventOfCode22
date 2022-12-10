@@ -14,8 +14,8 @@ public class First {
 
         int positionCount = 0;
         try {
-            // positionCount = solve(provideBufferedReader("src/Days/Day9/input.txt"));
-            positionCount = solve(provideBufferedReader("src/Days/Day9/testInput.txt"));
+            positionCount = solve(provideBufferedReader("src/Days/Day9/input.txt"));
+            //positionCount = solve(provideBufferedReader("src/Days/Day9/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,35 +28,56 @@ public class First {
         List<MoveCommand> commandList = new ArrayList<MoveCommand>();
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                MoveCommand moveCommand = new MoveCommand(Integer.parseInt(line.charAt(2) + ""), line.charAt(0));
+                MoveCommand moveCommand = new MoveCommand(Integer.parseInt(line.substring(2, line.length())), line.charAt(0));
                 commandList.add(moveCommand);
             }
             bufferedReader.close();
 
             Head head = new Head();
-            Point tail = new Head();
-            Point highest = new Point(0, 0);
-            Point lowest = new Point(0, 0);
+            Tail tail = new Tail(1, new Tail(0, null));
+
+            List<Point> visitedPoints = new ArrayList<Point>();
+            visitedPoints.add(new Point(0,0));
+            List<Point> headVisitedPoints = new ArrayList<Point>();
+
 
             for (MoveCommand moveCommand : commandList) {
                 for (int currentSteps = 0; currentSteps < moveCommand.steps(); currentSteps++) {
+                    Point oldHead= new Point(head);
                     head.moveOne(moveCommand.direction());
-                    if (head.x > highest.x)
-                        highest.setLocation(head.x, highest.y);
-                    if (head.y > highest.y)
-                        highest.setLocation(highest.x, head.y);
-                    if (head.x < lowest.x)
-                        lowest.setLocation(head.x, lowest.y);
-                    if (head.y < lowest.y)
-                        lowest.setLocation(lowest.x, head.y);
+                    tail.knotAbove.setLocation(head);
+                    tail.updateLocation(oldHead);
+                    
+                    boolean contains = false;
+                    for(Point listPoint:visitedPoints){
+                        if(isSame(listPoint,tail))
+                            contains = true;
+                    }
+
+                    if(!contains){
+                        visitedPoints.add(new Point(tail));
+                    }
+                    
                 }
-                System.out.println();
+                
             }
+            size=visitedPoints.size();
+            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return size;
+        return size; // 3031 too low
 
+    }
+
+    private static boolean isSame(Point listPoint, Tail tail) {
+        if(listPoint.x==tail.x&&listPoint.y==tail.y)
+            return true;
+        return false;
+    }
+
+    public void generateMap(){
+        
     }
 
     public static BufferedReader provideBufferedReader(String filename) throws IOException {

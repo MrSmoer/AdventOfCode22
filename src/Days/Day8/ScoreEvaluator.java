@@ -8,6 +8,7 @@ public class ScoreEvaluator {
     Direction direction;
     int foundTrees;
     int highestTree;
+    int test;
     List<List<Tree>> forest;
 
     public ScoreEvaluator(int x, int y, Direction direction, List<List<Tree>> forest) {
@@ -151,24 +152,7 @@ public class ScoreEvaluator {
         this.resetHighestTree();
     }
 
-    private boolean backstep() {
-        Direction olDirection = this.direction;
-        if (this.direction == Direction.UP) {
-            this.direction = Direction.DOWN;
-        } else if (this.direction == Direction.DOWN) {
-            this.direction = Direction.UP;
-        } else if (this.direction == Direction.DOWN) {
-            this.direction = Direction.LEFT;
-        } else if (this.direction == Direction.RIGHT) {
-            this.direction = Direction.LEFT;
-        }
-        boolean result = walk();
-        this.direction = olDirection;
-        return result;
-    }
-
     public void resetHighestTree() {
         this.highestTree = -1;
     }
-
 }

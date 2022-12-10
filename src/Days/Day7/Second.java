@@ -55,7 +55,7 @@ public class Second {
                 }
             }
             bufferedReader.close();
-            
+
             Directory root = new Directory();
             allDirectories.add(root);
             root.addObject("/", root);
@@ -65,28 +65,29 @@ public class Second {
                 if (command.type == CommandType.CD) {
                     if (command.args[1].equals("a"))
                         System.out.println("Here we go!");
-                    if (command.args[1].equals("/")){
-                        workingDirectory=root;
+                    if (command.args[1].equals("/")) {
+                        workingDirectory = root;
                         continue;
                     }
-                    Directory child = (Directory)workingDirectory.getChild(command.args[1]);
-                    workingDirectory = (Directory)child;
+                    Directory child = (Directory) workingDirectory.getChild(command.args[1]);
+                    workingDirectory = (Directory) child;
                 } else if (command.type == CommandType.LS) {
-                    for(String outputLine : command.output){
+                    for (String outputLine : command.output) {
                         String[] splitOutput = outputLine.split(" ");
-                        if(splitOutput[0].equals("dir")){;
-                            if(workingDirectory.getChild(splitOutput[1])!=null) // Directory has been seen before
+                        if (splitOutput[0].equals("dir")) {
+                            ;
+                            if (workingDirectory.getChild(splitOutput[1]) != null) // Directory has been seen before
                                 continue;
-                            //Add new directory to current dir
+                            // Add new directory to current dir
                             Directory foundDirectory = new Directory();
                             foundDirectory.addObject("..", workingDirectory);
                             workingDirectory.addObject(splitOutput[1], foundDirectory);
                             allDirectories.add(foundDirectory);
 
                         } else {
-                            if(workingDirectory.getChild(splitOutput[1])!=null) // File has been seen before
+                            if (workingDirectory.getChild(splitOutput[1]) != null) // File has been seen before
                                 continue;
-                            //Add file to current dir
+                            // Add file to current dir
                             workingDirectory.addObject(splitOutput[1], new File(Integer.parseInt(splitOutput[0])));
                         }
                     }
@@ -99,13 +100,13 @@ public class Second {
             int filledStorage = root.getSize();
             int totalSpace = 70000000;
             int spaceNeeded = 30000000;
-            int spaceToFree = spaceNeeded-(totalSpace-filledStorage);
+            int spaceToFree = spaceNeeded - (totalSpace - filledStorage);
             System.out.println(spaceToFree);
             directoryToDelete = allDirectories.get(0);
 
-            for (Directory directory : allDirectories){
-                int directorySize=directory.getSize();
-                if(directorySize>=spaceToFree&&directorySize<directoryToDelete.getSize())
+            for (Directory directory : allDirectories) {
+                int directorySize = directory.getSize();
+                if (directorySize >= spaceToFree && directorySize < directoryToDelete.getSize())
                     directoryToDelete = directory;
                 System.out.println(directoryToDelete.getSize());
             }
@@ -115,7 +116,7 @@ public class Second {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return directoryToDelete.getSize();
-
+        size = directoryToDelete.getSize();
+        return size;
     }
 }
