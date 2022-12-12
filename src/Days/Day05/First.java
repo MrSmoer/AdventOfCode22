@@ -12,8 +12,8 @@ public class First {
 
     public static void main(String[] args) {
 
-        String[] zeilen = readLines("src/Days/Day5/input.txt");
-        //String[] zeilen = readLines("src/Days/Day5/testInput.txt");
+        String[] zeilen = readLines("src/Days/Day05/input.txt");
+        //String[] zeilen = readLines("src/Days/Day05/testInput.txt");
         int instructionBegin = getInstructionBeginIndex(zeilen);
         if (instructionBegin < 2 || instructionBegin >= zeilen.length - 1) {
             System.out.println("Could not find begin index (" + instructionBegin + ")");

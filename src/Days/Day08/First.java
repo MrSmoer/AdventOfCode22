@@ -12,7 +12,7 @@ public class First {
 
         int markerChars = 0;
         try {
-            markerChars = solve(provideBufferedReader("src/Days/Day8/input.txt"));
+            markerChars = solve(provideBufferedReader("src/Days/Day08/input.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -10,7 +10,7 @@ public class First {
 
         int markerChars = 0;
         try {
-            markerChars = solve(readLines("src/Days/Day6/input.txt"));
+            markerChars = solve(readLines("src/Days/Day06/input.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }

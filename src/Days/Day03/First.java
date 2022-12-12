@@ -10,7 +10,7 @@ public class First {
 
     public static void main(String[] args) {
 
-        String[] zeilen = readLines("src/Days/Day3/input.txt");
+        String[] zeilen = readLines("src/Days/Day03/input.txt");
         int score = 0;
         List<Rucksack> saecke = new ArrayList<>();
         for (String zeile : zeilen){

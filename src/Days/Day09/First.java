@@ -14,8 +14,8 @@ public class First {
 
         int positionCount = 0;
         try {
-            positionCount = solve(provideBufferedReader("src/Days/Day9/input.txt"));
-            //positionCount = solve(provideBufferedReader("src/Days/Day9/testInput.txt"));
+            positionCount = solve(provideBufferedReader("src/Days/Day09/input.txt"));
+            //positionCount = solve(provideBufferedReader("src/Days/Day09/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }

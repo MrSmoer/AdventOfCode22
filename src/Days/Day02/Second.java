@@ -10,7 +10,7 @@ public class Second {
 
     public static void main(String[] args) {
 
-        String[] zeilen = readLines("src/Days/Day2/input.txt");
+        String[] zeilen = readLines("src/Days/Day02/input.txt");
         int score = 0;
 
         for (int zeile = 0; zeile < zeilen.length; zeile++) {

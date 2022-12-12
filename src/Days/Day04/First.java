@@ -10,8 +10,8 @@ public class First {
 
     public static void main(String[] args) {
 
-        //String[] zeilen = readLines("src/Days/Day4/input.txt");
-        String[] zeilen = readLines("src/Days/Day4/testInput.txt");
+        //String[] zeilen = readLines("src/Days/Day04/input.txt");
+        String[] zeilen = readLines("src/Days/Day04/testInput.txt");
         int score = 0;
         for (String zeile : zeilen){
             String[] ranges = zeile.split(",");

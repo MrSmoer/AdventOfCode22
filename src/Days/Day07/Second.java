@@ -12,7 +12,7 @@ public class Second {
 
         int size = 0;
         try {
-            size = solve(provideBufferedReader("src/Days/Day7/input.txt"));
+            size = solve(provideBufferedReader("src/Days/Day07/input.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }

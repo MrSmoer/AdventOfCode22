@@ -10,7 +10,7 @@ public class Second {
 
     public static void main(String[] args) {
 
-        String[] zeilen = readLines("src/Days/Day3/input.txt");
+        String[] zeilen = readLines("src/Days/Day03/input.txt");
         int score = 0;
         List<Group> groups = new ArrayList<>();
         for (int i = 0; i < zeilen.length; System.out.println("New group")) {
