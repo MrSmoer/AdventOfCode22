@@ -22,7 +22,7 @@ public class Monkey {
     }
 
     public void investigationOperation() {
-        int worryLevel = this.itemUnderInvestigation.getWorryLevel();
+        int worryLevel = (int) this.itemUnderInvestigation.getWorryLevel();
         String replaced = this.investigationOperation.replaceAll("old", (worryLevel+""));
         String bare = replaced.replaceAll("[^\\p{IsDigit}+*]", "");
         int resultWorryLevel;
@@ -55,7 +55,7 @@ public class Monkey {
     }
 
     public boolean testWorryLevel() {
-        int leftover= this.itemUnderInvestigation.getWorryLevel() % this.testDivisor;
+        int leftover= (int) (this.itemUnderInvestigation.getWorryLevel() % this.testDivisor);
         if (leftover==0){
             this.itemUnderInvestigation.setMonkeyDestination(this.trueMonkey);
             return true;

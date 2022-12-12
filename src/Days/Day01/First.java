@@ -10,7 +10,7 @@ public class First {
 
     public static void main(String[] args) {
 
-        String[] zeilen = readLines("src/Days/Day1/input.txt");
+        String[] zeilen = readLines("src/Days/Day01/input.txt");
 
         Elf aktuellerElf = new Elf();
         List<Elf> elfen = new ArrayList<>();
@@ -26,8 +26,10 @@ public class First {
 
         Elf biggestElf = new Elf();
         for (Elf elf : elfen) {
-            if (biggestElf.getCalories() < elf.getCalories())
+            if (biggestElf.getCalories() < elf.getCalories()){
+                System.out.println("Der alte elf mit "+biggestElf.getCalories()+" kalorie n wurde durch den mit "+elf.getCalories()+" ersetzt");
                 biggestElf = elf;
+            }
         }
         System.out.println("BiggestElf: " + biggestElf.getCalories());
 
