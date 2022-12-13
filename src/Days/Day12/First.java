@@ -82,7 +82,6 @@ public class First {
                     stepNeighbour.setStepCount(stepCount);
                     stepNeighbour.setVisitedBefore(true);
                     thingsToAdd.add(stepNeighbour);
-                    
                 }
             }
             for (MapPoint point : thingsToAdd) {

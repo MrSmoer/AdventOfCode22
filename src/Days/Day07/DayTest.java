@@ -9,20 +9,20 @@ import org.junit.Test;
 public class DayTest {
     public DayTest(){
 
-        
-    }
+            }
 
     @Test
     public void testSolveFirst() {
         try {
             //BufferedReader inputReader = First.provideBufferedReader("src/Days/Day7/input.txt");
-            BufferedReader testInputReader = First.provideBufferedReader("src/Days/Day7/testInput.txt");
-            assertEquals(95437, First.solve(testInputReader));
+            BufferedReader testInputReadasdfer = First.provideBufferedReader("src/Days/Day7/testInput.txt");
+            assertEquals(95437, First.solve(testInputReadasdfer));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+
 
     @Test
     public void testSolveSecond() {
@@ -37,3 +37,4 @@ public class DayTest {
         }
     }
 }
+
