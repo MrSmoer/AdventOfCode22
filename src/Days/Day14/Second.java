@@ -9,14 +9,14 @@ import javax.swing.text.Position;
 
 import java.awt.Point;
 
-public class First {
+public class Second {
 
     public static void main(String[] args) {
 
         int positionCount = 0;
         try {
-            //positionCount = solve(provideBufferedReader("src/Days/Day14/input.txt"));
-            positionCount = solve(provideBufferedReader("src/Days/Day14/testInput.txt"));
+            positionCount = solve(provideBufferedReader("src/Days/Day14/input.txt"));
+            //positionCount = solve(provideBufferedReader("src/Days/Day14/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,13 +53,19 @@ public class First {
                 }
                 lines.add(rockLine);
             }
-
+            
+            Line bottomLine = new Line();
+            bottomLine.addPoint(new Point(200,(biggest.y+=3)-1));
+            bottomLine.addPoint(new Point(700,biggest.y-1));
+            smallest.x=200;
+            biggest.x=500+210;
+            lines.add(bottomLine);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        smallest = new Point(smallest.x-1, smallest.y);
-        biggest = new Point(biggest.x + 2, biggest.y + 2);
+        /*smallest = new Point(smallest.x-180, smallest.y);
+        biggest = new Point(biggest.x + 182, biggest.y + 2);*/
 
         for (int xColumns = smallest.x; xColumns < (biggest.x); xColumns++) {
             ArrayList<Cell> yRow = new ArrayList<Cell>();
@@ -79,13 +85,15 @@ public class First {
         for (Line line : lines) {
             cave.drawLine(line);
         }
+        cave.printGrid();
         int result = 0;
-        while (!cave.hasSandInAbyss()) {
-            cave.dropSand(false);
+        while (!cave.isBlocked()) {
+            boolean b =cave.isBlocked();
+            cave.dropSand(true);
             result++;
         }
-
-        return result-1;
+        cave.printGrid();
+        return result;
 
     }
 

@@ -26,7 +26,8 @@ public class Cave {
             starPoint = p;
         }
     }
-    public Point absolute(Point start){
+
+    public Point absolute(Point start) {
         return new Point(start.x - this.cordsOfTopLeft.x, start.y - this.cordsOfTopLeft.y);
     }
 
@@ -38,7 +39,7 @@ public class Cave {
             fieldsToDraw = -1 * fieldsToDraw;
         Point brush = absStart;
         drawRock(brush);
-        //printGrid();
+        // printGrid();
         Point oneStep;
         if (absStart.x - absEnd.x == 0)
             oneStep = new Point(0, (absEnd.y - absStart.y) / fieldsToDraw);
@@ -46,7 +47,7 @@ public class Cave {
             oneStep = new Point((absEnd.x - absStart.x) / fieldsToDraw, 0);
         for (int drawnFields = 0; drawnFields < fieldsToDraw; drawnFields++) {
             brush.setLocation(brush.x + oneStep.x, brush.y + oneStep.y);
-            //printGrid();
+            // printGrid();
             drawRock(brush);
         }
     }
@@ -56,7 +57,7 @@ public class Cave {
     }
 
     public void printGrid() {
-        System.out.println(cordsOfTopLeft);
+        //System.out.println(cordsOfTopLeft);
         for (int y = 0; y < this.grid.get(0).size(); y++) {
             String outputLine = "";
             for (int x = 0; x < this.grid.size(); x++) {
@@ -67,63 +68,91 @@ public class Cave {
     }
 
     public boolean hasSandInAbyss() {
-        for(int i = 0; i<this.grid.size();i++){
-            Cell cell = this.grid.get(i).get(this.grid.get(0).size()-1);
-            if(cell instanceof Sand){
+        for (int i = 0; i < this.grid.size(); i++) {
+            Cell cell = this.grid.get(i).get(this.grid.get(0).size() - 1);
+            if (cell instanceof Sand) {
                 return true;
             }
         }
-        //TODO test method
+        // TODO test method
         return false;
     }
 
-    public void dropSand() {
+    public void dropSand(boolean withFloor) {
         Sand fallingSand = new Sand();
-        fallingSand.position.setLocation(startingPosition.x, startingPosition.y+1);
-        //this.grid.get(absolute(startingPosition).x).remove(absolute(startingPosition).y);
-        //printGrid();
-        System.out.println("");
+        fallingSand.position.setLocation(startingPosition.x, startingPosition.y);
+        // this.grid.get(absolute(startingPosition).x).remove(absolute(startingPosition).y);
+        // printGrid();
+        //System.out.println("");
         Point absoluteSand = absolute(fallingSand.position);
-        this.grid.get(absoluteSand.x).set(absoluteSand.y,fallingSand);
-        while(!fallingSand.isSettled&&!this.hasSandInAbyss()){
+        this.grid.get(absoluteSand.x).set(absoluteSand.y, fallingSand);
+        //printGrid();
+        while (!fallingSand.isSettled) {
             Point oldPosition = new Point(absoluteSand);
-            this.grid.get(absoluteSand.x).set(absoluteSand.y,new Cell(oldPosition,'.'));
-            if(fieldBelowIsFree(oldPosition)){
-                absoluteSand.y+=1;
-            }else if(diagonalLeftIsFree(oldPosition)){
-                absoluteSand.x-=1;
-                absoluteSand.y+=1;
-            } else if(diagonalRightIsFree(oldPosition)){
-                absoluteSand.x+=1;
-                absoluteSand.y+=1;
+            this.grid.get(absoluteSand.x).set(absoluteSand.y, new Cell(oldPosition, '.'));
+            if (fieldBelowIsFree(oldPosition)) {
+                absoluteSand.y += 1;
+            } else if (diagonalLeftIsFree(oldPosition)) {
+                absoluteSand.x -= 1;
+                absoluteSand.y += 1;
+            } else if (diagonalRightIsFree(oldPosition)) {
+                absoluteSand.x += 1;
+                absoluteSand.y += 1;
             } else {
                 fallingSand.setSettled();
             }
             fallingSand.setPosition(absoluteSand);
-            this.grid.get(absoluteSand.x).set(absoluteSand.y,fallingSand);
+            this.grid.get(absoluteSand.x).set(absoluteSand.y, fallingSand);
             //printGrid();
         }
     }
 
     private boolean diagonalRightIsFree(Point absoluteSand) {
-        if(this.grid.get(absoluteSand.x+1).get(absoluteSand.y+1).symbol=='.')
-        return true;
+        try {
+            if (this.grid.get(absoluteSand.x + 1).get(absoluteSand.y + 1).symbol == '.')
+                return true;
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Falling");
+            return false;
+        }
         return false;
     }
 
     private boolean diagonalLeftIsFree(Point absoluteSand) {
-        if(this.grid.get(absoluteSand.x-1).get(absoluteSand.y+1).symbol=='.')
-        return true;
+        try {
+            if (this.grid.get(absoluteSand.x - 1).get(absoluteSand.y + 1).symbol == '.')
+                return true;
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Falling");
+            return false;
+        }
         return false;
     }
 
     private boolean fieldBelowIsFree(Point absoluteSand) {
-        if(this.grid.get(absoluteSand.x).get(absoluteSand.y+1).symbol=='.')
-        return true;
+        try {
+            if (this.grid.get(absoluteSand.x).get(absoluteSand.y + 1).symbol == '.')
+                return true;
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Falling");
+            return false;
+        }
         return false;
     }
 
     public void setStartingPosition(Point startingPosition) {
-        this.startingPosition=startingPosition;
+        this.startingPosition = startingPosition;
+    }
+
+    public boolean isBlocked(){
+        Point absouluteStart = absolute(startingPosition);
+        Cell startCell=this.grid.get(absouluteStart.x).get(absouluteStart.y);
+        if(startCell instanceof Sand &&
+            ((Sand)startCell).isSettled)
+            return true;
+        return false;
     }
 }
