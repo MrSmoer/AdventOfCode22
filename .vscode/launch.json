@@ -5,7 +5,20 @@
     "version": "0.2.0",
     "configurations": [
 
-        
+        {
+            "type": "java",
+            "name": "Launch Day14 Second",
+            "request": "launch",
+            "mainClass": "Days.Day14.Second",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
+        {
+            "type": "java",
+            "name": "Launch Day14 First",
+            "request": "launch",
+            "mainClass": "Days.Day14.First",
+            "projectName": "AdventOfCode22_3e526d23"
+        },
         {
             "type": "java",
             "name": "Launch Day13 Second",
