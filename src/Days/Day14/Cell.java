@@ -4,13 +4,17 @@ import java.awt.Point;
 
 public class Cell {
     Point position;
-
-    public Cell(){
+    char symbol;
+    public Cell(char symbol){
+        this.symbol=symbol;
         this.position=new Point();
     }
 
-    public Cell(Point position){
+
+
+    public Cell(Point position,char symbol){
         this.position=position;
+        this.symbol=symbol;
     }
 
     public Point getPosition() {

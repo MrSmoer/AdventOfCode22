@@ -15,8 +15,8 @@ public class First {
 
         int positionCount = 0;
         try {
-            // positionCount = solve(provideBufferedReader("src/Days/Day14/input.txt"));
-            positionCount = solve(provideBufferedReader("src/Days/Day14/testInput.txt"));
+            positionCount = solve(provideBufferedReader("src/Days/Day14/input.txt"));
+            //positionCount = solve(provideBufferedReader("src/Days/Day14/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,28 +57,34 @@ public class First {
             e.printStackTrace();
         }
 
-        smallest = new Point(smallest.x - 1, smallest.y);
-        biggest = new Point(biggest.x + 1, biggest.y + 1);
+        smallest = new Point(smallest.x-1, smallest.y);
+        biggest = new Point(biggest.x + 2, biggest.y + 2);
 
         for (int xColumns = smallest.x; xColumns < (biggest.x); xColumns++) {
             ArrayList<Cell> yRow = new ArrayList<Cell>();
             for (int yRows = smallest.y; yRows < (biggest.y - smallest.y); yRows++) {
-                yRow.add(new Cell(new Point(xColumns,yRows)));
+                char cellchar = '.';
+                if (xColumns == startingPosition.x && yRows == startingPosition.y) {
+                    cellchar = 'x';
+                }
+                yRow.add(new Cell(new Point(xColumns, yRows), cellchar));
             }
             grid.add(yRow);
         }
         Cave cave = new Cave();
-        cave.setGrid(grid,smallest);
+        cave.setGrid(grid, smallest);
+        cave.setStartingPosition(startingPosition);
 
-        for(Line line : lines){
+        for (Line line : lines) {
             cave.drawLine(line);
         }
-        while(!cave.hasSandInAbyss()){
-            cave.dropSand(startingPosition);
+        int result = 0;
+        while (!cave.hasSandInAbyss()) {
+            cave.dropSand();
+            result++;
         }
 
-        int result = 0;
-        return result;
+        return result-1;
 
     }
 
