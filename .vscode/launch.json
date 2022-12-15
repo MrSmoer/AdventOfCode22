@@ -6,24 +6,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch First",
+            "name": "Launch Day15 First",
             "request": "launch",
             "mainClass": "Days.Day15.First",
-            "projectName": "AdventOfCode22_63e3a6b7"
-        },
-        {
-            "type": "java",
-            "name": "Launch Second",
-            "request": "launch",
-            "mainClass": "Days.Day14.Second",
-            "projectName": "AdventOfCode22_63e3a6b7"
-        },
-        {
-            "type": "java",
-            "name": "Launch First",
-            "request": "launch",
-            "mainClass": "Days.Day14.First",
-            "projectName": "AdventOfCode22_63e3a6b7"
+            "projectName": "AdventOfCode22_3e526d23",
+            "args": "-Xmx8192m"
         },
         {
             "type": "java",

@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.text.Position;
-
 import java.awt.Point;
 
 public class First {
@@ -15,8 +13,8 @@ public class First {
 
         int positionCount = 0;
         try {
-            // positionCount = solve(provideBufferedReader("src/Days/Day15/input.txt"));
-            positionCount = solve(provideBufferedReader("src/Days/Day15/testInput.txt"));
+            positionCount = solve(provideBufferedReader("src/Days/Day15/input.txt"));
+            // positionCount = solve(provideBufferedReader("src/Days/Day15/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,6 +29,7 @@ public class First {
         Point startingPosition = new Point(0, 0);
         Point smallest = new Point(startingPosition);
         Point biggest = new Point(startingPosition);
+        Sensor mostdistance = null;
         try {
 
             while ((readLine = bufferedReader.readLine()) != null) {
@@ -53,17 +52,23 @@ public class First {
                 }
                 boolean isInList = false;
                 Beacon beacon = new Beacon(pair.get(1));
-                for(Beacon beacon2 : beacons){
-                    if(beacon.getPosition().x==beacon2.getPosition().x&&beacon.getPosition().y==beacon2.getPosition().y){
-                        beacon=beacon2;
-                        isInList=true;
+                for (Beacon beacon2 : beacons) {
+                    if (beacon.getPosition().x == beacon2.getPosition().x
+                            && beacon.getPosition().y == beacon2.getPosition().y) {
+                        beacon = beacon2;
+                        isInList = true;
                         continue;
                     }
                 }
-                if(!isInList){
+                if (!isInList) {
                     beacons.add(beacon);
                 }
+
                 Sensor sensor = new Sensor(pair.get(0), beacon);
+                if (mostdistance == null || sensor.distanceToBeacon() > mostdistance.distanceToBeacon()) {
+                    mostdistance = sensor;
+                }
+
                 sensors.add(sensor);
 
             }
@@ -72,25 +77,43 @@ public class First {
             e.printStackTrace();
         }
 
-        for (int xColumns = smallest.x; xColumns < (biggest.x-smallest.x-1); xColumns++) {
+        smallest.x-=mostdistance.distanceToBeacon()+1;
+        smallest.y-=mostdistance.distanceToBeacon()+1;
+        biggest.x+=mostdistance.distanceToBeacon()+1;
+        biggest.y+=mostdistance.distanceToBeacon()+1;
+
+        for (int xColumns = -1; xColumns < (biggest.x - smallest.x); xColumns++) {
             ArrayList<Cell> yRow = new ArrayList<Cell>();
-            for (int yRows = smallest.y; yRows < (biggest.y+1 - smallest.y); yRows++) {
+            for (int yRows = -1; yRows < (biggest.y - smallest.y); yRows++) {
                 char cellchar = '.';
                 yRow.add(new Cell(new Point(xColumns, yRows), cellchar));
             }
             grid.add(yRow);
         }
+        
         Cave cave = new Cave();
         cave.setGrid(grid, smallest);
-        for (Beacon beacon: beacons){
+        cave.printGrid();
+        for (Beacon beacon : beacons) {
             cave.drawObject(beacon.position, beacon);
         }
-        for (Sensor sensor: sensors){
+        for (Sensor sensor : sensors) {
             cave.drawObject(sensor.position, sensor);
         }
+        System.out.println("readLine");
+        cave.printGrid();
+        cave.reachOut(sensors);
         cave.printGrid();
         int result = 0;
-        return result - 1;
+        String line="";
+        for(int i = 0; i<(biggest.x - smallest.x);i++){
+            char symbol = cave.grid.get(i).get(2000000-smallest.y).symbol;
+            if(symbol=='#'||symbol=='S')
+                result++;
+            line+=symbol;
+        }
+        System.out.println(line);
+        return result;
 
     }
 
