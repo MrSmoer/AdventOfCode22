@@ -27,6 +27,7 @@ public class First {
         String readLine;
         ArrayList<ArrayList<Cell>> grid = new ArrayList<ArrayList<Cell>>();
         ArrayList<Beacon> beacons = new ArrayList<Beacon>();
+        ArrayList<Sensor> sensors = new ArrayList<Sensor>();
         Point startingPosition = new Point(0, 0);
         Point smallest = new Point(startingPosition);
         Point biggest = new Point(startingPosition);
@@ -63,7 +64,7 @@ public class First {
                     beacons.add(beacon);
                 }
                 Sensor sensor = new Sensor(pair.get(0), beacon);
-
+                sensors.add(sensor);
 
             }
 
@@ -71,9 +72,9 @@ public class First {
             e.printStackTrace();
         }
 
-        for (int xColumns = smallest.x; xColumns < (biggest.x); xColumns++) {
+        for (int xColumns = smallest.x; xColumns < (biggest.x-smallest.x-1); xColumns++) {
             ArrayList<Cell> yRow = new ArrayList<Cell>();
-            for (int yRows = smallest.y; yRows < (biggest.y - smallest.y); yRows++) {
+            for (int yRows = smallest.y; yRows < (biggest.y+1 - smallest.y); yRows++) {
                 char cellchar = '.';
                 yRow.add(new Cell(new Point(xColumns, yRows), cellchar));
             }
@@ -81,6 +82,13 @@ public class First {
         }
         Cave cave = new Cave();
         cave.setGrid(grid, smallest);
+        for (Beacon beacon: beacons){
+            cave.drawObject(beacon.position, beacon);
+        }
+        for (Sensor sensor: sensors){
+            cave.drawObject(sensor.position, sensor);
+        }
+        cave.printGrid();
         int result = 0;
         return result - 1;
 
