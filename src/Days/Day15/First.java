@@ -3,6 +3,7 @@ package Days.Day15;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import java.awt.Point;
@@ -22,13 +23,13 @@ public class First {
     }
 
     public static int solve(BufferedReader bufferedReader) {
+        ArrayList<Cell> itemInTargetLine= new ArrayList<>();
         String readLine;
         ArrayList<ArrayList<Cell>> grid = new ArrayList<ArrayList<Cell>>();
         ArrayList<Beacon> beacons = new ArrayList<Beacon>();
         ArrayList<Sensor> sensors = new ArrayList<Sensor>();
         Point startingPosition = new Point(0, 0);
-        Point smallest = new Point(startingPosition);
-        Point biggest = new Point(startingPosition);
+        int targetLine = 2000000;
         Sensor mostdistance = null;
         try {
 
@@ -38,16 +39,7 @@ public class First {
                 ArrayList<Point> pair = new ArrayList<>();
                 for (int i = 1; i < 3; i++) {
                     Point newPoint = convertPoint(elements[i].split(":")[0]);
-                    if (newPoint.x > biggest.x) {
-                        biggest.x = newPoint.x;
-                    } else if (newPoint.x < smallest.x) {
-                        smallest.x = newPoint.x;
-                    }
-                    if (newPoint.y > biggest.y) {
-                        biggest.y = newPoint.y;
-                    } else if (newPoint.y < smallest.y) {
-                        smallest.y = newPoint.y;
-                    }
+                    
                     pair.add(newPoint);
                 }
                 boolean isInList = false;
@@ -61,60 +53,99 @@ public class First {
                     }
                 }
                 if (!isInList) {
+                    if(beacon.position.y==targetLine){
+                        itemInTargetLine.add(beacon);
+                    }
                     beacons.add(beacon);
                 }
-
                 Sensor sensor = new Sensor(pair.get(0), beacon);
-                if (mostdistance == null || sensor.distanceToBeacon() > mostdistance.distanceToBeacon()) {
-                    mostdistance = sensor;
+                if(sensor.position.y==targetLine){
+                    itemInTargetLine.add(sensor);
                 }
-
                 sensors.add(sensor);
+            }
+            ArrayList<Sensor> toRemove = new ArrayList<Sensor>();
+            for (Sensor sensor : sensors) {
+                int distanceToBeacon = sensor.distanceToBeacon();
 
+                int distanceToTarget = targetLine - sensor.position.y - 1;
+                if (distanceToBeacon < distanceToTarget) {
+                    toRemove.add(sensor);
+                } else {
+                    if (mostdistance == null || distanceToBeacon > mostdistance.distanceToBeacon()) {
+                        mostdistance = sensor;
+                    }
+                }
+            }
+            System.out.println(mostdistance.distanceToBeacon());
+            for (Sensor sensor : toRemove) {
+                sensors.remove(sensor);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        smallest.x-=mostdistance.distanceToBeacon()+1;
-        smallest.y-=mostdistance.distanceToBeacon()+1;
-        biggest.x+=mostdistance.distanceToBeacon()+1;
-        biggest.y+=mostdistance.distanceToBeacon()+1;
-
-        for (int xColumns = -1; xColumns < (biggest.x - smallest.x); xColumns++) {
-            ArrayList<Cell> yRow = new ArrayList<Cell>();
-            for (int yRows = -1; yRows < (biggest.y - smallest.y); yRows++) {
-                char cellchar = '.';
-                yRow.add(new Cell(new Point(xColumns, yRows), cellchar));
-            }
-            grid.add(yRow);
-        }
-        
-        Cave cave = new Cave();
-        cave.setGrid(grid, smallest);
-        cave.printGrid();
-        for (Beacon beacon : beacons) {
-            cave.drawObject(beacon.position, beacon);
-        }
+        ArrayList<Range> ranges = new ArrayList<Range>();
         for (Sensor sensor : sensors) {
-            cave.drawObject(sensor.position, sensor);
+            int distanceToBeacon = sensor.distanceToBeacon();
+            int x = sensor.position.x;
+            Integer distanceLines = absInteger(sensor.position.y - targetLine);
+            int charactersToDraw = distanceToBeacon - distanceLines;
+            if (charactersToDraw >= 0)
+                ranges.add(new Range(x, charactersToDraw));
+
         }
-        System.out.println("readLine");
-        cave.printGrid();
-        cave.reachOut(sensors);
-        cave.printGrid();
+
         int result = 0;
-        String line="";
-        for(int i = 0; i<(biggest.x - smallest.x);i++){
-            char symbol = cave.grid.get(i).get(2000000-smallest.y).symbol;
-            if(symbol=='#'||symbol=='S')
-                result++;
-            line+=symbol;
+        ArrayList<Range> trimmedRanges = new ArrayList<Range>();
+        for (Range range : ranges) {
+            System.out.print("m");
+            range.print(true);
+            for (Range otherRange : ranges) {
+                if (otherRange == range) {
+                    continue;
+                }
+                if (range != null && otherRange != null) {
+                    range.print();
+                    otherRange.print();
+                    range = range.trimOverlaps(otherRange);
+                    if (range != null)
+                        range.print();
+                    else
+                        System.out.println("NUll");
+                }
+            }
+            if (range != null)
+                trimmedRanges.add(range);
         }
-        System.out.println(line);
+
+        for (Range range : trimmedRanges) {
+            ArrayList<Cell> itemsToRemove = new ArrayList<Cell>();
+            for(Cell itemInLine : itemInTargetLine){
+                if(range.containsInt(itemInLine.position.x))
+                {
+                    result--;
+                    itemsToRemove.add(itemInLine);
+                }
+            }
+
+            for(Cell itemToRemove: itemsToRemove){
+                itemInTargetLine.remove(itemToRemove);
+            }
+            // TODO subtract other stuff within
+            result += range.size();
+        }
+
+        System.out.println("test");
+
         return result;
 
+    }
+
+    public static Integer absInteger(int i) {
+        if (i < 0)
+            return i * -1;
+        return i;
     }
 
     public static Point convertPoint(String input) {
