@@ -14,8 +14,8 @@ public class First {
 
         int positionCount = 0;
         try {
-            positionCount = solve(provideBufferedReader("src/Days/Day15/input.txt"));
-            // positionCount = solve(provideBufferedReader("src/Days/Day15/testInput.txt"));
+            // positionCount = solve(provideBufferedReader("src/Days/Day15/input.txt"));
+            positionCount = solve(provideBufferedReader("src/Days/Day15/testInput.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,7 +29,7 @@ public class First {
         ArrayList<Beacon> beacons = new ArrayList<Beacon>();
         ArrayList<Sensor> sensors = new ArrayList<Sensor>();
         Point startingPosition = new Point(0, 0);
-        int targetLine = 2000000;
+        int targetLine = 11;
         Sensor mostdistance = null;
         try {
 
